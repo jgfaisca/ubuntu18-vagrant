@@ -1,0 +1,40 @@
+#
+#  Copyright (c) 2018, Jose G. Faisca
+#  jose.faisca@gmail.com
+#  
+#  Vagrantfile ubuntu18-vagrant
+#
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/ubuntu1804"
+  config.vm.network "private_network", type: "dhcp"
+
+  # Virtualbox VM configuration.
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+    v.cpus = 1
+  end
+  
+  # Sync folder
+  config.vm.synced_folder "../sync", "/home/vagrant/sync"
+
+  # downloads and configuration dependencies
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+
+    mkdir -p ~/sync
+
+    echo "Installing dependencies..."
+
+    # quiets some stdin errors
+    export DEBIAN_FRONTEND=noninteractive
+
+    sudo apt-get update -qq
+    sudo apt-get install -y htop net-tools
+
+    # build requirements
+    
+    echo "Setup complete!"
+
+  SHELL
+
+end
