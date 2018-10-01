@@ -1,5 +1,5 @@
 # ubuntu18-vagrant
-Ubuntu 18 generic VM
+Ubuntu 18.04 generic VM
 
 ### Depencencies
 [Vagrant](https://www.vagrantup.com/downloads.html) <br>
